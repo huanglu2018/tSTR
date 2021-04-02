@@ -12,5 +12,6 @@ imports:
     data.table,
     tidyr,
     magrittr,
-    dplyr
+    dplyr,
+    foreach
 RoxygenNote: 7.0.0
