@@ -1,0 +1,16 @@
+Package: tSTR
+Type: Package
+Title: functions used in gtex2str project
+Version: 0.1.0
+Author: Huang Lu
+Maintainer: Huang Lu <huanglu705122613@foxmail.com>
+Description: basic vcf data manipulation to explore STR characteristics of GTEx tissues
+License: GPL
+Encoding: UTF-8
+LazyData: true
+imports: 
+    data.table,
+    tidyr,
+    magrittr,
+    dplyr
+RoxygenNote: 7.0.0
