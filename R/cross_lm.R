@@ -1,7 +1,7 @@
 #' cross_lm uses the variables from two data.frame and run pairwise linear regression, out put the pvalues and fdrs
 #'
-#' @param df1 dataframe of ncol values in nrow samples, sample ID as rowname, will be lm regressed with df2 in a cross way
-#' @param df2 dataframe of ncol values in nrow samples, sample ID as rowname, will be lm regressed with df1 in a cross way
+#' @param df1 dataframe of ncol values in nrow samples, sample ID as rowname, independent variables (x), will be lm regressed with df2 in a cross way
+#' @param df2 dataframe of ncol values in nrow samples, sample ID as rowname, dependent variables (y), will be lm regressed with df1 in a cross way
 #' @param fdr_method default BH, see p.adjust()
 #'
 #' @return var1, var2, pval, fdr, coef
@@ -45,28 +45,22 @@ cross_lm=function(df1,df2,fdr_method="BH"){
     return(c(var1=each_var1,var2=each_var2,pval=pval,coef=mycoef))
   }
 
-  lm_var2_by_all_var1=function(my_var2,fdr_method){
+  lm_var2_by_all_var1=function(my_var2){
     res_raw=sapply(colnames(df1),lm_var2_by_var1,each_var2=my_var2)
     res=res_raw %>% t() %>%  as.data.frame() %>%
       remove_rownames() %>%
       set_colnames(c("var1","var2","pval","coef")) %>%
       mutate(pval=as.numeric(pval)) %>%
-      mutate(coef=as.numeric(coef)) %>%
-      mutate(fdr=p.adjust(pval,method = fdr_method))
+      mutate(coef=as.numeric(coef))# %>%
+      #mutate(fdr=p.adjust(pval,method = fdr_method))
     return(res)
   }
 
-  all_res=foreach(each_var2=colnames(df2),fdr_method=rep(fdr_method,NCOL(df2)), .combine="rbind") %do%
+  all_res=foreach(each_var2=colnames(df2), .combine="rbind") %do%
     {
-      lm_var2_by_all_var1(each_var2,fdr_method)
+      lm_var2_by_all_var1(each_var2)
     }
-#
-#     all_res=all_res_raw[-1,] %>%
-#       as.data.frame() %>%
-#       mutate(pval=as.numeric(pval)) %>%
-#       mutate(coef=as.numeric(coef)) %>%
-#       mutate(fdr=as.numeric(fdr))
-#
+  all_res=all_res %>% mutate(fdr=p.adjust(pval,method = fdr_method))
     return(all_res)
   }
 
