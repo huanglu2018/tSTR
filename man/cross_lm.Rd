@@ -7,9 +7,9 @@
 cross_lm(df1, df2, fdr_method = "BH")
 }
 \arguments{
-\item{df1}{dataframe of ncol values in nrow samples, sample ID as rowname, will be lm regressed with df2 in a cross way}
+\item{df1}{dataframe of ncol values in nrow samples, sample ID as rowname, independent variables (x), will be lm regressed with df2 in a cross way}
 
-\item{df2}{dataframe of ncol values in nrow samples, sample ID as rowname, will be lm regressed with df1 in a cross way}
+\item{df2}{dataframe of ncol values in nrow samples, sample ID as rowname, dependent variables (y), will be lm regressed with df1 in a cross way}
 
 \item{fdr_method}{default BH, see p.adjust()}
 }
