@@ -14,5 +14,7 @@ imports:
     magrittr,
     dplyr,
     foreach,
-    ggplot2
+    ggplot2,
+    rtracklayer,
+    pacman
 RoxygenNote: 7.0.0
