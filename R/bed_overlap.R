@@ -1,5 +1,5 @@
 
-#' Title
+#' Applied to check the distance between each STR site and closest exon boundaries, if too close, it might be disturbed by alternative splicing(AS), alternative polyadenylation(APA), or alternative promoter usage(APU) events
 #'
 #' @param query_bed bed3 or more cols to check their overlap with references
 #' @param ref_bed bed files as reference, when extracting from gtf, careful about differences between 0-index and 1-index
@@ -65,9 +65,12 @@ bed_overlap=function(query_bed,ref_bed){
     mutate(outside_distance_to_ref_boundary=min(outdistance)) %>%
     ungroup()
 
-  res=rbind(entire_inside_exon,only_start_inside_exon,only_end_inside_exon,entire_outside_exon) %>%
+  res_raw=rbind(entire_inside_exon,only_start_inside_exon,only_end_inside_exon,entire_outside_exon) %>%
     select(!c(uniA,uniB,outdistance,query_start_inside_ref,query_end_inside_ref))
 
+  res=bt.sort(res_raw)
+
+  colnames(res)[(NCOL(res)-1):NCOL(res)]=colnames(res_raw)[(NCOL(res_raw)-1):NCOL(res_raw)]
   colnames(res)[1:(ncA-1)]=colnames(query_bed)
   colnames(res)[ncA:(ncA+ncB-2)]=colnames(ref_bed)
 
