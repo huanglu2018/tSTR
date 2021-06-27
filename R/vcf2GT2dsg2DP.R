@@ -94,8 +94,8 @@ vcf2DP=function(vcf_file){
   pacman::p_load(magrittr,data.table,dplyr)
   if(!file_test("-f", vcf_file)) stop(simpleError(paste0(vcf_file,' not exist !')))
   s=fread(vcf_file,data.table = F,skip="#CHROM",select = c(1,2,10))
-  DP=s[,3] %>% tstrsplit(.,":") %>% as.data.frame() %>% .[,2]
-  s2=data.frame(s[,1:2],DP) %>% set_colnames(c("CHROM","POS","DP"))
+  DP=s[,3] %>% tstrsplit(.,":") %>% as.data.frame() %>% .[,2,drop=F]
+  s2=data.frame(s[,1:2],DP) %>% set_colnames(c("CHROM","POS","DP")) %>% mutate(CHROM=sub("^chr","",CHROM))
   return(s2)
 }
 
