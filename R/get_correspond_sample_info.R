@@ -16,7 +16,7 @@
 #'   individual   RNAseq_run   RNAseq_sample   RNAseq_tissue   WGS_run   WGS_sample   WGS_tissue
 #'   GTEX-PX3G   SRR598300   GTEX-PX3G-0006-SM-2I3E4   Whole Blood   SRR3478911   GTEX-PX3G-0004-SM-5JK53   Whole Blood
 #'
-get_correspond_sample_info=function(inSRR,outdf){
+get_correspond_sample_info=function(inSRR){
   pacman::p_load(magrittr,data.table,dplyr,tibble)
   # inSRR=c("SRR598300")
   data("GTEx_RNAseq_manifest")

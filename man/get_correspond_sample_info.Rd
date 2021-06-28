@@ -4,7 +4,7 @@
 \alias{get_correspond_sample_info}
 \title{Function used to map GTEx v7 SRR id(s) from RNAseq to its tissue part, WGS SRR id and individual id}
 \usage{
-get_correspond_sample_info(inSRR, outdf)
+get_correspond_sample_info(inSRR)
 }
 \arguments{
 \item{inSRR}{one or a list of GTEx RNAseq SRR id}
