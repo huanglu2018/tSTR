@@ -78,7 +78,7 @@ str_somatic_vs_germline=function(RNAseq_GT,WGS_GT){
       each_row_compare(i,M_dsg)
     }
 
-  M_dsg2=merge(M_dsg,as.data.frame(modi_info),by="loci")
+  M_dsg2=merge(M_dsg,as.data.frame(modi_info),by="loci") %>% mutate(dsg_modi=as.numeric(dsg_modi))
   return(M_dsg2)
 }
 
